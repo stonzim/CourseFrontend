@@ -1,12 +1,12 @@
 import React from "react";
-import Person from "./Person/Person";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <hi>Hi there, big ears!</hi>
-      <Person />
+      <header className="App-header">
+        <h1>Hi there!</h1>
+      </header>
     </div>
   );
 }
