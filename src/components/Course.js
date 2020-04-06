@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Course.scss";
 
 function Course(props) {
-  //   const [flag, setFlag] = useState(false);
-  //   let flag = false;
   return (
     <div className="course-style">
-      <h3>{props.title}</h3>
+      <h3>{props.course.title}</h3>
       <hr></hr>
-      <p>{props.desc}</p>
-      <button onClick={props.onClick}>Add Course</button>
+      <p>{props.course.desc}</p>
+      <button name={props.course.id} onClick={props.onClick}>
+        Add Course
+      </button>
     </div>
   );
 }

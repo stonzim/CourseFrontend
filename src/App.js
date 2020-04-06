@@ -1,45 +1,71 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import "./App.scss";
-import Course from "./components/Course";
-import { ADDRCONFIG } from "dns";
+// import Course from "./components/Course";
+import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
+import coursesss from "./pages/Courses";
+import index from "./pages/Index";
 
-const initialCourses = [
-  {
-    id: 1,
-    title: "Neural Networks",
-    desc: "This course teaches you to make a neural network"
-  },
-  {
-    id: 2,
-    title: "History of AI",
-    desc: "A look at the last 100 years of AI"
-  }
-];
+// const initialCourses = [
+//   {
+//     id: 1,
+//     title: "Neural Networks",
+//     desc: "This course teaches you to make a neural network"
+//   },
+//   {
+//     id: 2,
+//     title: "History of AI",
+//     desc: "A look at the last 100 years of AI"
+//   }
+// ];
 
 function App() {
-  const [courses, setCourses] = useState(initialCourses);
+  //   const [courses, setCourses] = useState(initialCourses);
 
-  const addCourseHandler = e => {
-    const copyCourses = courses.filter(course => course !== this);
-    setCourses(copyCourses);
-  };
+  //   function addCourseHandler(e) {
+  //     const copyCourses = courses.filter(
+  //       course => course.id !== parseInt(e.target.name)
+  //     );
+
+  //     setCourses(copyCourses);
+  //   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="green App-title">Available Courses</h1>
-        {courses.map((course, i) => (
-          <div>
-            <Course
-              title={course.title}
-              desc={course.desc}
-              key={`${i}${course.title}${course.desc}`}
-              onClick={addCourseHandler}
-            ></Course>
-          </div>
-        ))}
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <nav align="left">
+            <ul>
+              <li>
+                <NavLink to="/" exact activeStyle={{ color: "green" }}>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/topics" exact activeStyle={{ color: "green" }}>
+                  Topics
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/courses" exact activeStyle={{ color: "green" }}>
+                  Courses
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+          <h1 className="green App-title">Stonzim Insitute of Technology</h1>
+          <Route path="/" exact component={index}></Route>
+          <Route path="/courses" exact component={coursesss}></Route>
+          {/* {courses.map((course, i) => (
+            <div key={i}>
+              <Course
+                course={course}
+                key={i}
+                onClick={addCourseHandler}
+              ></Course> */}
+          {/* </div> */}
+        </header>
+      </div>
+    </BrowserRouter>
   );
 }
 
