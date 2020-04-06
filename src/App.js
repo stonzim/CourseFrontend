@@ -1,9 +1,10 @@
 import React from "react";
 import "./App.scss";
 // import Course from "./components/Course";
-import { BrowserRouter, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 import coursesss from "./pages/Courses";
 import index from "./pages/Index";
+import topics from "./pages/Topics";
 
 // const initialCourses = [
 //   {
@@ -55,6 +56,7 @@ function App() {
           <h1 className="green App-title">Stonzim Insitute of Technology</h1>
           <Route path="/" exact component={index}></Route>
           <Route path="/courses" exact component={coursesss}></Route>
+          <Route path="/topics" exact component={topics}></Route>
           {/* {courses.map((course, i) => (
             <div key={i}>
               <Course
