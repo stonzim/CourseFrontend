@@ -23,7 +23,7 @@ function Topics() {
   return (
     <div>
       <header>
-        <h1>Topics</h1>
+        <h2>Topics</h2>
       </header>
       {topics.map((topic, i) => (
         <div key={i}>

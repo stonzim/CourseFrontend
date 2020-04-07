@@ -1,9 +1,9 @@
 import React from "react";
-import "./Course.scss";
+import "./Topic.scss";
 
 function Topic(props) {
   return (
-    <div className="course-style">
+    <div className="topic-style">
       <h3>{props.topic.title}</h3>
       <hr></hr>
       <p>{props.topic.desc}</p>

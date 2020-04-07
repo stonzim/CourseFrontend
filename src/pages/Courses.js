@@ -28,7 +28,7 @@ function Courses() {
   return (
     <div>
       <header>
-        <h1>Courses</h1>
+        <h2>Courses</h2>
       </header>
       {courses.map((course, i) => (
         <div key={i}>
