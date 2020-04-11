@@ -8,33 +8,122 @@ import userDetails from "./pages/UserDetails";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const studentList = [
+    {
+      studentID: 101,
+      firstname: "Winston",
+      lastname: "Downes",
+      birthdate: "25 July 1983",
+      username: "win",
+      password: "pass"
+    },
+    {
+      studentID: 102,
+      firstname: "Simon",
+      lastname: "Armour",
+      birthdate: "25 July 1987",
+      username: "si",
+      password: "pass"
+    }
+  ];
+
+  const [students, setStudent] = useState(studentList);
+
+  const [signedIn, setSignedIn] = useState({
+    studentID: 0,
+    firstname: "",
+    lastname: "",
+    birthdate: "",
+    username: "",
+    password: ""
+  });
+
+  const [target, setTarget] = useState();
+  function setName(e) {
+    setTarget(e.target.value);
+  }
+
+  const [password, setPassword] = useState();
+  function setPass(e) {
+    setPassword(e.target.value);
+  }
+
+  const copyState = signedIn;
 
   function loginHandler() {
-    setLoggedIn(!loggedIn);
+    if (loggedIn) {
+      setLoggedIn(false);
+      return;
+    }
+    for (let i = 0; i < students.length; i++) {
+      if (
+        students[i].username === target &&
+        students[i].password === password
+      ) {
+        copyState.studentID = students[i].studentID;
+        copyState.firstname = students[i].firstname;
+        copyState.lastname = students[i].lastname;
+        copyState.birthdate = students[i].birthdate;
+        copyState.username = students[i].username;
+        copyState.password = students[i].password;
+        setSignedIn(copyState);
+        setLoggedIn(true);
+        return;
+      }
+      setLoggedIn(false);
+    }
   }
 
   return (
     <BrowserRouter>
+      <div className={loggedIn ? "visible" : "invisible"}>
+        {" "}
+        <strong>Welcome {signedIn.username}</strong>
+      </div>
       <div className="App">
         <nav align="left">
           <ul>
             <li>
-              <NavLink to="/" exact activeStyle={{ color: "green" }}>
+              <NavLink
+                className="Navlink-style"
+                to="/"
+                exact
+                activeStyle={{ color: "green" }}
+              >
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/topics" exact activeStyle={{ color: "green" }}>
+              <NavLink
+                className="Navlink-style"
+                to="/topics"
+                exact
+                activeStyle={{ color: "green" }}
+              >
                 Topics
               </NavLink>
             </li>
             <li>
-              <NavLink to="/courses" exact activeStyle={{ color: "green" }}>
+              <NavLink
+                className="Navlink-style"
+                to="/courses"
+                exact
+                activeStyle={{ color: "green" }}
+              >
                 Courses
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/details" exact activeStyle={{ color: "green" }}>
+            <li className={loggedIn ? "visible" : "invisible"}>
+              <NavLink
+                to={{
+                  pathname: "/details",
+                  state: {
+                    current: signedIn
+                  }
+                }}
+                exact
+                activeStyle={{ color: "green" }}
+              >
                 Details
               </NavLink>
             </li>
@@ -43,29 +132,41 @@ function App() {
         <header className="App-header">
           <h1 className="green App-title">Stonzim Insitute of Technology</h1>
         </header>
-        <div className="login">
+        <form className="login">
           <label align="left">Name</label>
-          <input placeholder="Enter username here"></input>
+          <input
+            type="text"
+            placeholder="Enter username here"
+            onChange={setName}
+          ></input>
           <br />
           <label align="left">Password</label>
-          <input placeholder="Enter password here"></input>
+          <input
+            type="password"
+            placeholder="Enter password here"
+            onChange={setPass}
+          ></input>
           <br />
-          <button onClick={loginHandler}>
+          <button className="halfSize" type="reset" onClick={loginHandler}>
             {loggedIn ? "Log out" : "Log in"}
           </button>
-          <button>Sign up</button>
-        </div>
+          <button className="halfSize">Sign up</button>
+        </form>
+        <hr></hr>
         <Route path="/" exact component={index}></Route>
         <Route path="/courses" exact component={coursesss}></Route>
         <Route path="/topics" exact component={topics}></Route>
-        {loggedIn ? (
-          <Route path="/details" exact component={userDetails}></Route>
-        ) : (
-          <Route path="/" exact component={index}></Route>
-        )}
+        <Route
+          render={() => {
+            return loggedIn ? (
+              <Route path="/details" component={userDetails}></Route>
+            ) : (
+              <Redirect to="/" component={index}></Redirect>
+            );
+          }}
+        ></Route>
       </div>
     </BrowserRouter>
   );
 }
-
 export default App;

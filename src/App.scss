@@ -4,7 +4,7 @@
 }
 
 .App-header {
-  // background-color: #282c34;
+  background-color: #6c7fa3;
   height: 150px;
   width: 80%;
   display: flex;
@@ -27,12 +27,20 @@ $colour: green;
 }
 
 nav {
-  margin-left: 0;
   margin-right: auto;
   text-align: left;
   float: left;
   height: 150px;
   width: 10%;
+  font-size: 20px;
+}
+
+.Navlink-style {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
 }
 
 .login {
@@ -40,5 +48,17 @@ nav {
   height: 150px;
   width: 10%;
   text-align: left;
-  // margin-right: 50px;
+  // padding-right: 10px;
+}
+
+.halfSize {
+  width: 50%;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
 }
