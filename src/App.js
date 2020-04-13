@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import "./App.scss";
-import { BrowserRouter, Route, NavLink, Redirect } from "react-router-dom";
+import { Route, NavLink, Redirect, Switch, useHistory } from "react-router-dom";
 import coursesss from "./pages/Courses";
 import index from "./pages/Index";
 import topics from "./pages/Topics";
 import userDetails from "./pages/UserDetails";
+import signUp from "./pages/SignUp";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const status = useSelector(state => state.signedIn);
+  console.log(status);
+  const dispatch = useDispatch();
   const studentList = [
     {
       studentID: 101,
@@ -26,6 +31,8 @@ function App() {
       password: "pass"
     }
   ];
+
+  let history = useHistory();
 
   const [students, setStudent] = useState(studentList);
 
@@ -52,6 +59,8 @@ function App() {
 
   function loginHandler() {
     if (loggedIn) {
+      dispatch({ type: "SIGNED OUT" });
+      console.log(status);
       setLoggedIn(false);
       return;
     }
@@ -68,6 +77,9 @@ function App() {
         copyState.password = students[i].password;
         setSignedIn(copyState);
         setLoggedIn(true);
+        dispatch({ type: "SIGNED IN" });
+        console.log(status);
+
         return;
       }
       setLoggedIn(false);
@@ -75,10 +87,10 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <div className={loggedIn ? "visible" : "invisible"}>
         {" "}
-        <strong>Welcome {signedIn.username}</strong>
+        <strong>Welcome {signedIn.firstname}</strong>
       </div>
       <div className="App">
         <nav align="left">
@@ -115,6 +127,7 @@ function App() {
             </li>
             <li className={loggedIn ? "visible" : "invisible"}>
               <NavLink
+                className="Navlink-style"
                 to={{
                   pathname: "/details",
                   state: {
@@ -150,23 +163,32 @@ function App() {
           <button className="halfSize" type="reset" onClick={loginHandler}>
             {loggedIn ? "Log out" : "Log in"}
           </button>
-          <button className="halfSize">Sign up</button>
+          <button
+            type="button"
+            className="halfSize"
+            onClick={() => history.push("/signup")}
+          >
+            Sign up
+          </button>
         </form>
         <hr></hr>
-        <Route path="/" exact component={index}></Route>
-        <Route path="/courses" exact component={coursesss}></Route>
-        <Route path="/topics" exact component={topics}></Route>
-        <Route
-          render={() => {
-            return loggedIn ? (
-              <Route path="/details" component={userDetails}></Route>
-            ) : (
-              <Redirect to="/" component={index}></Redirect>
-            );
-          }}
-        ></Route>
+        <Switch>
+          <Route path="/" exact component={index}></Route>
+          <Route path="/courses" exact component={coursesss}></Route>
+          <Route path="/topics" exact component={topics}></Route>
+          <Route path="/signup" exact component={signUp}></Route>
+          <Route
+            render={() => {
+              return loggedIn ? (
+                <Route path="/details" component={userDetails}></Route>
+              ) : (
+                <Redirect to="/" component={index}></Redirect>
+              );
+            }}
+          ></Route>
+        </Switch>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 export default App;
