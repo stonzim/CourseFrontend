@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Topic from "../components/Topic";
 
-const initialTopics = [
-  {
-    id: 1,
-    title: "AI",
-    desc: "Learn different aspects of AI"
-  }
-];
-
 function Topics() {
-  const [topics, setTopics] = useState(initialTopics);
+  const [topics, setTopics] = useState([{}]);
+
+  async function getTopics() {
+    const response = await fetch("http://localhost:8090/courseapi/topics");
+    const json = await response.json();
+    setTopics(json);
+  }
+  useEffect(() => {
+    getTopics();
+  }, []);
 
   function addTopicHandler(e) {
     const copyTopics = topics.filter(

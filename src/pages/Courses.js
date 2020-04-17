@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Course from "../components/Course";
+// import axios from "axios";
 
 const initialCourses = [
   {
@@ -15,7 +16,20 @@ const initialCourses = [
 ];
 
 function Courses() {
-  const [courses, setCourses] = useState(initialCourses);
+  const [courses, setCourses] = useState([]);
+  const [blah, setBlah] = useState();
+
+  async function getTopics() {
+    const response = await fetch("http://localhost:8090/courseapi/topics");
+    const json = await response.json();
+    setBlah(json);
+  }
+
+  useEffect(() => {
+    getTopics();
+  }, []);
+
+  console.log(blah);
 
   function addCourseHandler(e) {
     const copyCourses = courses.filter(

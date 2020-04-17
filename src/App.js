@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from "react-redux";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const status = useSelector(state => state.signedIn);
-  console.log(status);
   const dispatch = useDispatch();
   const studentList = [
     {
@@ -60,7 +59,6 @@ function App() {
   function loginHandler() {
     if (loggedIn) {
       dispatch({ type: "SIGNED OUT" });
-      console.log(status);
       setLoggedIn(false);
       return;
     }
@@ -78,7 +76,6 @@ function App() {
         setSignedIn(copyState);
         setLoggedIn(true);
         dispatch({ type: "SIGNED IN" });
-        console.log(status);
 
         return;
       }
