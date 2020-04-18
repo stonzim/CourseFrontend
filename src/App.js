@@ -6,11 +6,11 @@ import index from "./pages/Index";
 import topics from "./pages/Topics";
 import userDetails from "./pages/UserDetails";
 import signUp from "./pages/SignUp";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const status = useSelector(state => state.signedIn);
+  // const status = useSelector(state => state.signedIn);
   const dispatch = useDispatch();
   const studentList = [
     {
@@ -110,16 +110,6 @@ function App() {
                 activeStyle={{ color: "green" }}
               >
                 Topics
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className="Navlink-style"
-                to="/courses"
-                exact
-                activeStyle={{ color: "green" }}
-              >
-                Courses
               </NavLink>
             </li>
             <li className={loggedIn ? "visible" : "invisible"}>

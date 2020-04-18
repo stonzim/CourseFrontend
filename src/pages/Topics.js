@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Topic from "../components/Topic";
+import { Route, useHistory } from "react-router-dom";
+import courses from "../pages/Courses";
 
 function Topics() {
   const [topics, setTopics] = useState([{}]);
@@ -13,13 +15,7 @@ function Topics() {
     getTopics();
   }, []);
 
-  function addTopicHandler(e) {
-    const copyTopics = topics.filter(
-      topic => topic.id !== parseInt(e.target.name)
-    );
-
-    setTopics(copyTopics);
-  }
+  let history = useHistory();
 
   return (
     <div>
@@ -28,11 +24,16 @@ function Topics() {
       </header>
       {topics.map((topic, i) => (
         <div key={i}>
-          <Topic topic={topic} key={i} onClick={addTopicHandler}></Topic>
+          <Topic
+            topic={topic}
+            key={i}
+            onClick={() => history.push("/courses", { index: i })}
+          ></Topic>
         </div>
       ))}
+      <Route path="/courses" exact component={courses}></Route>
     </div>
   );
 }
-
+// onClick={goToCoursesHandler}
 export default Topics;

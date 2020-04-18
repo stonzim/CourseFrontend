@@ -4,9 +4,9 @@ import "./Course.scss";
 function Course(props) {
   return (
     <div className="course-style">
-      <h3>{props.course.title}</h3>
+      <h3>{props.course.name}</h3>
       <hr></hr>
-      <p>{props.course.desc}</p>
+      <p>{props.course.description}</p>
       <button name={props.course.id} onClick={props.onClick}>
         Add Course
       </button>

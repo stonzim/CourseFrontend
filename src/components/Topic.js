@@ -8,7 +8,7 @@ function Topic(props) {
       <hr></hr>
       <p>{props.topic.description}</p>
       <button name={props.topic.id} onClick={props.onClick}>
-        Add Topic
+        Go to Courses
       </button>
     </div>
   );
